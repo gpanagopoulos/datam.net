@@ -1,6 +1,7 @@
 # datam.net
 
 How to start:
+
 1. Edit App.config of Datam.Host
   - ConnectionString
   - DBType (currently only SQLServer supported)
