@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datam.Host", "Datam.Host\Datam.Host.csproj", "{2609518C-D87E-49A9-9B6E-E42DCDA04864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datam.Core", "Datam.Core\Datam.Core.csproj", "{5EDB7356-6A3D-440A-AB50-9DE6F8B07B4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datam.Core.SqlServer", "Datam.Core.SqlServer\Datam.Core.SqlServer.csproj", "{8074B5E8-32D5-47E2-8E40-81B867BB3070}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{84EC18B9-F14D-4AAE-9341-EAFB5D7B0C3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datam.Core.UnitTests", "Datam.Core.UnitTests\Datam.Core.UnitTests.csproj", "{E6B045FC-2E57-4294-A568-4A8721686E0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{EE624D8F-FEB5-42CF-8D6D-345485E8B730}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlServer", "SqlServer", "{D9558519-130D-4925-A62A-EC7D17E53DFD}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\SqlServer\20161012.001.Patch.sql = Scripts\SqlServer\20161012.001.Patch.sql
+		Scripts\SqlServer\20161012.002.Patch.sql = Scripts\SqlServer\20161012.002.Patch.sql
+		Scripts\SqlServer\20161028.001.Patch.sql = Scripts\SqlServer\20161028.001.Patch.sql
+		Scripts\SqlServer\20161029.001.Patch.sql = Scripts\SqlServer\20161029.001.Patch.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2609518C-D87E-49A9-9B6E-E42DCDA04864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2609518C-D87E-49A9-9B6E-E42DCDA04864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2609518C-D87E-49A9-9B6E-E42DCDA04864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2609518C-D87E-49A9-9B6E-E42DCDA04864}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDB7356-6A3D-440A-AB50-9DE6F8B07B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDB7356-6A3D-440A-AB50-9DE6F8B07B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDB7356-6A3D-440A-AB50-9DE6F8B07B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDB7356-6A3D-440A-AB50-9DE6F8B07B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8074B5E8-32D5-47E2-8E40-81B867BB3070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8074B5E8-32D5-47E2-8E40-81B867BB3070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8074B5E8-32D5-47E2-8E40-81B867BB3070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8074B5E8-32D5-47E2-8E40-81B867BB3070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6B045FC-2E57-4294-A568-4A8721686E0B} = {84EC18B9-F14D-4AAE-9341-EAFB5D7B0C3A}
+		{D9558519-130D-4925-A62A-EC7D17E53DFD} = {EE624D8F-FEB5-42CF-8D6D-345485E8B730}
+	EndGlobalSection
+EndGlobal

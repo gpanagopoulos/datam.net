@@ -1,0 +1,5 @@
+﻿-- EVERY T-SQL STATEMENT SHOULD BE FOLLOWED BY GO AND RETURN
+INSERT INTO [test].[Test] VALUES 
+(3, 'Value 3'),
+(4, 'Value 4'),
+(5, 'Value 5')

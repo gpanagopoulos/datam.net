@@ -1,0 +1,9 @@
+﻿CREATE SCHEMA [test]
+GO
+
+CREATE TABLE [test].[Test]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[GO] VARCHAR(255) NOT NULL
+)
+GO
