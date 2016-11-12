@@ -18,7 +18,7 @@ namespace Datam.Core.UnitTests.Services
             //Arrange
             var scriptReader = new Mock<IScriptReader>();
             var databaseUpdater = new Mock<IDatabaseUpdater>();
-            databaseUpdater.Setup(d => d.CheckTableExists("migrations", "Scripts")).Returns(false);
+            databaseUpdater.Setup(d => d.HasInitialised()).Returns(false);
 
             var patchingService = new PatchingService(databaseUpdater.Object, scriptReader.Object);
 
@@ -44,7 +44,7 @@ namespace Datam.Core.UnitTests.Services
             scriptReader.Setup(s => s.GetScriptName(It.IsAny<string>())).Returns<string>(s => s);
 
             var databaseUpdater = new Mock<IDatabaseUpdater>();
-            databaseUpdater.Setup(d => d.CheckTableExists("migrations", "Scripts")).Returns(true);//already initialised
+            databaseUpdater.Setup(d => d.HasInitialised()).Returns(true);//already initialised
             databaseUpdater.Setup(d => d.HasScriptExecuted("20160101.001.Patch.sql")).Returns(true);
             databaseUpdater.Setup(d => d.HasScriptExecuted("20160101.002.Patch.sql")).Returns(true);
             databaseUpdater.Setup(d => d.HasScriptExecuted("20160101.003.Patch.sql")).Returns(true);

@@ -1,4 +1,4 @@
-﻿-- EVERY T-SQL STATEMENT SHOULD BE FOLLOWED BY GO AND RETURN
+﻿-- EVERY DDL STATEMENT SHOULD BE FOLLOWED BY GO. EVERY DML Statement should end with ';'
 CREATE TABLE [locations].[Country]
 (
 	[CountryId] INT NOT NULL,
@@ -23,7 +23,7 @@ INSERT INTO [locations].[Country] ([CountryId], [Name]) VALUES
 (13, 'Romania'),
 (14, 'Bulgaria'),
 (15, 'Denmark'),
-(16, 'Norway')
+(16, 'Norway');
 
 ALTER TABLE [locations].[City]
 ADD [CountryId] INT NULL

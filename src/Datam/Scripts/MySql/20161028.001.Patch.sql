@@ -1,17 +1,14 @@
 ﻿-- EVERY DDL STATEMENT SHOULD BE FOLLOWED BY GO. EVERY DML Statement should end with ';'
-CREATE SCHEMA [locations]
-GO
-
-CREATE TABLE [locations].[City]
+CREATE TABLE city
 (
-	[CityId] INT NOT NULL,
-	[Name] VARCHAR(255) NOT NULL,
-	[Country] VARCHAR(255) NOT NULL,
-	CONSTRAINT [PK_City] PRIMARY KEY ([CityId])
+	city_id INT NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	country VARCHAR(255) NOT NULL,
+	CONSTRAINT pk_city PRIMARY KEY (city_id)
 )
 GO
 
-INSERT INTO [locations].[City] ([CityId], [Name], [Country]) VALUES 
+INSERT INTO city (city_id, name, country) VALUES 
 (1, N'London', 'United Kingdom'),
 (2, N'Zurich', 'Switzerland'),
 (3, N'Munich', 'Germany'),

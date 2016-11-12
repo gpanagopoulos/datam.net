@@ -4,6 +4,7 @@ using Autofac;
 using Datam.Core.Commands;
 using Datam.Core.Container;
 using Datam.Core.Model;
+using Datam.Core.MySql.Container;
 using Datam.Core.Services;
 using Datam.Core.SqlServer.Container;
 
@@ -17,11 +18,14 @@ namespace Datam.Host
             builder.RegisterModule(new CoreModule());
             switch (ConfigurationManager.AppSettings["DBType"])
             {
-                case "SQLServer":
+                case "SqlServer":
                     builder.RegisterModule(new SqlServerModule());
                     break;
+                case "MySql":
+                    builder.RegisterModule(new MySqlModule());
+                    break;
                 default:
-                    throw new ApplicationException("Wrong DBType set in Application Configuration. Please change to SQLServer.");
+                    throw new ApplicationException("Wrong DBType set in Application Configuration.");
             }
             
             using (var container = builder.Build())
@@ -30,11 +34,12 @@ namespace Datam.Host
                 var options = optionsParser.ParseOptions(args);
                 
                 var command = container.ResolveNamed<ICommand>(options.OperationType.ToString());
-                command.Execute((message) =>
+                command.Execute(message =>
                 {
                     Console.WriteLine(message);
                 });
             }
+
             Console.ReadLine();
         }
     }

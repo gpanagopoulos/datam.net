@@ -1,73 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using Datam.Core.Helpers;
 using Datam.Core.DataAccess;
+using Datam.Core.Helpers;
 using Datam.Core.Model;
 using Datam.Core.Services;
+using MySql.Data.MySqlClient;
 
-namespace Datam.Core.SqlServer.DataAccess
+namespace Datam.Core.MySql.DataAccess
 {
-    public class SqlServerDatabaseUpdater : IDatabaseUpdater
+    public class MySqlDatabaseUpdater : IDatabaseUpdater
     {
         private bool _disposed;
-        private readonly SqlConnection _connection;
-        private readonly SqlTransaction _transaction;
+        private readonly MySqlConnection _connection;
+        private readonly MySqlTransaction _transaction;
 
-        public SqlServerDatabaseUpdater(IConnectionStringService service)
+        public MySqlDatabaseUpdater(IConnectionStringService service)
         {
-            _connection = new SqlConnection() {ConnectionString = service.BuildConnectionString()};
+            _connection = new MySqlConnection() { ConnectionString = service.BuildConnectionString() };
             _connection.Open();
             _transaction = _connection.BeginTransaction();
         }
 
         public bool CheckTableExists(string schema, string table)
         {
-            string cmdText = @"IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='" + table + "' AND TABLE_SCHEMA = '" + schema + "') SELECT 1 ELSE SELECT 0";
-            SqlCommand command = _connection.CreateCommand();
+            string cmdText = @"SELECT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='" + table + "' AND TABLE_SCHEMA = '" + schema + "')";
+            MySqlCommand command = _connection.CreateCommand();
             command.CommandText = cmdText;
             command.Transaction = _transaction;
             var ret = command.ExecuteScalar();
 
-            if (ret is int)
-                return (int) ret == 1;
+            if (ret is long)
+                return (long)ret == 1;
             throw new ApplicationException("CheckTableExists: Incorrect return value returned from query - Expected 0 or 1");
-        }
-
-        public bool HasInitialised()
-        {
-            return CheckTableExists("migrations", "scripts_history");
-        }
-
-        public IEnumerable<Migration> GetMigrationInfo()
-        {
-            List<Migration> migrations = new List<Migration>();
-            string sqlText = @"EXEC [migrations].[GetMigrationInfo]";
-            SqlCommand command = _connection.CreateCommand();
-            command.CommandText = sqlText;
-            using (var reader = command.ExecuteReader())
-            {
-                while (reader.NextResult())
-                {
-                    migrations.Add(new Migration()
-                    {
-                        Filename = reader.GetString(0),
-                        DateTimeApplied = reader.GetDateTime(1)
-                    });
-                }
-            }
-
-            return migrations;
-        }
-
-        public void Initialise()
-        {
-            ExecuteScript(EmbeddedAppScripts.CREATE_SCHEMA_MIGRATIONS);
-            ExecuteScript(EmbeddedAppScripts.CREATE_TABLE_SCRIPT_HISTORY);
-            ExecuteScript(EmbeddedAppScripts.CREATE_GET_MIGRATION_INFO);
-            ExecuteScript(EmbeddedAppScripts.CREATE_HAS_SCRIPT_EXECUTED);
-            ExecuteScript(EmbeddedAppScripts.CREATE_UPGRADE_VERSION);
         }
 
         public void ExecuteScript(string sqlScript)
@@ -84,9 +49,9 @@ namespace Datam.Core.SqlServer.DataAccess
 
         public bool UpgradeVersion(string scriptName)
         {
-            string cmdText = string.Format(@"EXEC [migrations].[UpgradeVersion] N'{0}'", scriptName);
+            string cmdText = string.Format(@"CALL upgrade_version ('{0}')", scriptName);
 
-            SqlCommand newUpdateCommand = _connection.CreateCommand();
+            MySqlCommand newUpdateCommand = _connection.CreateCommand();
             newUpdateCommand.CommandText = cmdText;
             newUpdateCommand.Transaction = _transaction;
 
@@ -94,9 +59,43 @@ namespace Datam.Core.SqlServer.DataAccess
             return rowsAffected == 1;
         }
 
+        public bool HasInitialised()
+        {
+            return CheckTableExists(_connection.Database, "scripts_history");
+        }
+
+        public void Initialise()
+        {
+            ExecuteScript(EmbeddedAppScripts.CREATE_TABLE_SCRIPT_HISTORY);
+            ExecuteScript(EmbeddedAppScripts.CREATE_GET_MIGRATION_INFO);
+            ExecuteScript(EmbeddedAppScripts.CREATE_HAS_SCRIPT_EXECUTED);
+            ExecuteScript(EmbeddedAppScripts.CREATE_UPGRADE_VERSION);
+        }
+
+        public IEnumerable<Migration> GetMigrationInfo()
+        {
+            List<Migration> migrations = new List<Migration>();
+            string sqlText = @"CALL get_migration_info();";
+            MySqlCommand command = _connection.CreateCommand();
+            command.CommandText = sqlText;
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.NextResult())
+                {
+                    migrations.Add(new Migration()
+                    {
+                        Filename = reader.GetString(0),
+                        DateTimeApplied = reader.GetDateTime(1)
+                    });
+                }
+            }
+
+            return migrations;
+        }
+
         public bool HasScriptExecuted(string name)
         {
-            string cmdText = string.Format(@"EXEC [migrations].[HasScriptExecuted] N'{0}'", name);
+            string cmdText = string.Format(@"CALL has_script_executed ('{0}');", name);
 
             var command = _connection.CreateCommand();
             command.CommandText = cmdText;
@@ -104,8 +103,8 @@ namespace Datam.Core.SqlServer.DataAccess
 
             var ret = command.ExecuteScalar();
 
-            if (ret is int)
-                return (int) ret == 1;
+            if (ret is long)
+                return (long)ret == 1;
             throw new ApplicationException(nameof(HasScriptExecuted) +
                                            "Incorrect return value returned from query - Expected 0 or 1");
         }

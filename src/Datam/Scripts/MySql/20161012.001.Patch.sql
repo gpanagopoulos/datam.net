@@ -1,0 +1,11 @@
+﻿-- EVERY DDL STATEMENT SHOULD BE FOLLOWED BY GO. EVERY DML Statement should end with ';'
+CREATE TABLE test
+(
+	id INT NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL
+)
+GO
+
+INSERT INTO test VALUES 
+(1, 'Value 1'),
+(2, 'Value 2');

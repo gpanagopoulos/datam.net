@@ -26,9 +26,8 @@ namespace Datam.Core.Services
 
             try
             {
-                //Check if has run once
-                bool hasInit = _databaseUpdater.CheckTableExists("migrations", "Scripts");
-                if (!hasInit)
+                //Check if has first time
+                if (!_databaseUpdater.HasInitialised())
                 {
                     _databaseUpdater.Initialise();
                     progressAction("Initialised database");

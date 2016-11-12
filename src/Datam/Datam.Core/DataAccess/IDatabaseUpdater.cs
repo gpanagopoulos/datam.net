@@ -10,6 +10,7 @@ namespace Datam.Core.DataAccess
         bool HasScriptExecuted(string name);
         void ExecuteScript(string sqlScript);
         bool UpgradeVersion(string scriptName);
+        bool HasInitialised();
         void Initialise();
         IEnumerable<Migration> GetMigrationInfo();
 

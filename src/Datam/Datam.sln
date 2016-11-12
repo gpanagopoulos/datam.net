@@ -23,6 +23,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlServer", "SqlServer", "{
 		Scripts\SqlServer\20161029.001.Patch.sql = Scripts\SqlServer\20161029.001.Patch.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datam.Core.MySql", "Datam.Core.MySql\Datam.Core.MySql.csproj", "{BC38E8CA-2DBC-47A6-B424-2BB813013CEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySql", "MySql", "{D0CE2E06-FD56-4B48-8A2B-C1261F4010FA}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\MySql\20161012.001.Patch.sql = Scripts\MySql\20161012.001.Patch.sql
+		Scripts\MySql\20161012.002.Patch.sql = Scripts\MySql\20161012.002.Patch.sql
+		Scripts\MySql\20161028.001.Patch.sql = Scripts\MySql\20161028.001.Patch.sql
+		Scripts\MySql\20161029.001.Patch.sql = Scripts\MySql\20161029.001.Patch.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +55,10 @@ Global
 		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6B045FC-2E57-4294-A568-4A8721686E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC38E8CA-2DBC-47A6-B424-2BB813013CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC38E8CA-2DBC-47A6-B424-2BB813013CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC38E8CA-2DBC-47A6-B424-2BB813013CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC38E8CA-2DBC-47A6-B424-2BB813013CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +66,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E6B045FC-2E57-4294-A568-4A8721686E0B} = {84EC18B9-F14D-4AAE-9341-EAFB5D7B0C3A}
 		{D9558519-130D-4925-A62A-EC7D17E53DFD} = {EE624D8F-FEB5-42CF-8D6D-345485E8B730}
+		{D0CE2E06-FD56-4B48-8A2B-C1261F4010FA} = {EE624D8F-FEB5-42CF-8D6D-345485E8B730}
 	EndGlobalSection
 EndGlobal
